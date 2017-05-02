@@ -42,7 +42,8 @@ In the creation wizard, you will only need to specify
 
 Now we will create the three subnets outlined above. Click on *Subnets* on the left pane and then click the *Create Subnet* button for each new subnet to be created. Here we will give the following subnets the following parameters: 
 
-####Management Subnet:####
+***Management Subnet:***
+
   * **Name** `MGMT` for management traffic
   * **VPC** `Demo-VPC`
   * **IPv4 CIDR Block** range of `172.16.10.0/24`
@@ -51,7 +52,8 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create MGMT Subnet](images/MGMT-subnet.gif)
 
-####Server Subnet:######
+***Server Subnet:***
+
   * **Name** `Server` for private back-end server traffic
   * **VPC** `Demo-VPC`
   * **IPv4 CIDR Block** range of `172.16.20.0/24`
@@ -60,7 +62,8 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create Server Subnet](images/Server-subnet.gif)
 
-####Client Subnet:####
+***Client Subnet:***
+
   * **Name** `Client` for Direct web-facing internet traffic. 
   * **VPC** `Demo-VPC`
   * **IPv4 CIDR Block** range of `172.16.30.0/24` 
