@@ -40,7 +40,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 
   **Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
 
-### Storage in AWS [S3](S3/), [EFS](EFS/), and [EBS](EBS/)
+### Storage in AWS [(S3](S3/), [EFS](EFS/), and [EBS](EBS/))
 1. [S3](S3/)
   * Create an S3 Bucket
   * Put a File in the Bucket
