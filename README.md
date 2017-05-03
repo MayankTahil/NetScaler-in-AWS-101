@@ -10,6 +10,8 @@ After learning the basics and configuring pre-requisite networking, we will then
 
 As a pre-requisite for this tutorial, please sign up and create your own AWS Free Tier account from the [sign in page](https://console.aws.amazon.com/console/home)
 
+Follow along via links to AWS tutorial content in the Table of Contents below. 
+
 # Table of Contents
 
 ### [Networking in AWS (VPC)](VPC/)
