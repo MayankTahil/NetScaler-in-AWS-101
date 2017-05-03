@@ -40,6 +40,6 @@ Finally confirm the configuration and and click ***Create File System*** button 
 
 We have successfully created a NFS mount point to be consumed by our [compute](https://aws.amazon.com/ec2/details/) or [other resources](https://aws.amazon.com/blogs/aws/amazon-efs-update-on-premises-access-via-direct-connect-vpc/) hosted wihtin our VPC.
 
-We will next [configure EC2](../EC2) instances with NFS mount points to use the EFS we configured here and store data. Follow the tutorial on [Compute in AWS (EC2)](../EC2/README.md#Linux-EFS-Mount) to continue. 
+We will next [configure EC2](../EC2) instances with NFS mount points to use the EFS we configured here and store data. Follow the tutorial on [Compute in AWS (EC2)](../EC2##Linux-EFS-Mount) to continue. 
 
 

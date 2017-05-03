@@ -15,8 +15,8 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 # Table of Contents
 
 ### [Networking in AWS (VPC)](./VPC#VPC)
-1. [Creating a VPC](./VPC#VPC-Wizard)
-2. [Creating Three Subnets](./VPC#VPC-Subnets)
+1. Creating a VPC
+2. Creating Three Subnets
   * Management Subnet
   * Server Subnet
   * Client Subnet
@@ -27,7 +27,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 
   **Summary of [Network Topolgy after completion](VPC/images/Base-NTW-Topology.jpg)**
 
-### [Computing in AWS (EC2)](EC2/)
+### [Computing in AWS (EC2)](./EC2#EC2)
 1. Launch an Windows EC2 Instance (Client Network)
   * Launch EC2 Instance Wizard
   * Allocate an Elastic IP (EIP)
@@ -40,7 +40,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 
   **Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
 
-### Storage in AWS ([S3](S3/), [EFS](EFS/), and [EBS](EBS/))
+### Storage in AWS ([S3](./S3#S3), [EFS](./EFS#EFS), and [EBS](./EBS#EBS))
 1. [S3](S3/)
   * Create an S3 Bucket
   * Put a File in the Bucket
@@ -53,7 +53,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 3. [EBS](EBS/)
   * PLACE HOLDER
 
-### [Deploy NetScaler ADC in AWS](Deploy-NS/)
+### [Deploy NetScaler ADC in AWS](./Deploy-NS#Deploy-NS)
 1. EC2 Launch Wizard for NetScaler VPX 1000 (MGMT Subnet)
 2. Attach Additional ENI's
   * ENI on Server Subnet
