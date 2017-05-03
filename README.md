@@ -22,7 +22,8 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
   * Configure the MGMT Subnet Default Route Table
   * Create and Configure the Server Subnet's Route Table
   * Create and Configure the Client Subnet's Route Table
-4. Summary of [Network Topolgy after completion](VPC/images/Base-NTW-Topology.jpg)
+
+  **Summary of [Network Topolgy after completion](VPC/images/Base-NTW-Topology.jpg)**
 
 ### [Computing in AWS (EC2)](EC2/)
 1. Launch an Windows EC2 Instance (Client Network)
@@ -34,5 +35,23 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
   * SSH into Linux EC2 Instance
   * Host Two Webservers on port 80, 81, 82
   * Configure Custom Security Groups Rules
-3. Summary of [Netowrk Topology after completion](EC2/images/Base-NTW-Topology.jpg)
+
+  **Summary of [Network Topology after completion](EC2/images/Base-NTW-Topology.jpg)**
+
+### Storage in AWS [S3](S3/), [EFS](EFS/), and [EBS](EBS/)
+1. [S3](S3/)
+  * Create an S3 Bucket
+  * Put a File in the Bucket
+  * Retreive the File from the Bucket
+2. [EFS](EFS/)
+  * Create an EFS Mount Point
+  * Store data in the EFS Mount
+  * Launch a Linux EC2 instance within EFS
+  * Retreive Files from the EFS
+3. [EBS](EBS/)
+  * PLACE HOLDER
+ 
+
+
+  
   
