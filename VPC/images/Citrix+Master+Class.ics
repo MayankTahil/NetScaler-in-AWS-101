@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+METHOD:PUBLISH
+PRODID:-//Microsoft Corporation//Outlook 11.0 MIMEDIR//EN
+BEGIN:VEVENT
+UID:39324590970661f9ac
+DTSTAMP:20170503T055342Z
+DTSTART:20170503T120000Z
+DTEND:20170503T140000Z
+SUMMARY:Citrix Master Class
+LOCATION:Webinar
+DESCRIPTION:Join your webinar by following the steps below.\n\n1. Open the event link: https://global.gotowebinar.com/join/288-763-195\n\n2. Enter your Webinar ID: 288-763-195\n\n3. Enter your registered e-mail address: mayank.tahilramani@citrix.com \n\n
+END:VEVENT
+END:VCALENDAR
