@@ -35,7 +35,7 @@ In the creation wizard, you will only need to specify
 
 Now we will create the three subnets outlined above. Click on *Subnets* on the left pane and then click the *Create Subnet* button for each new subnet to be created. Here we will give the following subnets the following parameters: 
 
-### Management Subnet:###
+### Management Subnet: ###
 
   * **Name** `MGMT` for management traffic
   * **VPC** `Demo-VPC`
