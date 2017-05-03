@@ -8,11 +8,11 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
 ## Networking in AWS (VPC)
 In this Section we will explore how to configure cloud networking in AWS. If you have not already done so, logon to [htps://consle.aw.amazon.com](consol.aws.asazon.com) to gain access to the AWS dashboard. Once you have logged on, in the top left you will notice a "Service" drop down which lists all of your services availible that you can subscribe to and consume for your cloud infrastructure. For configuring our cloud's networking resources, we will primarily be working in the VPC dashboard. Click on VPC under services to enter the VPC dashboard. 
 
-![AWS Dashboard Services](images/AWS-VPC-Dashboard.gif)
+![AWS Dashboard Services](images/VPC/AWS-VPC-Dashboard.gif)
 
 Once you're in the VPC dashboard, you will notice in the top right my selected region is *N. California*. This designates where my resources in the cloud will be geographically residing. Each Region consists of multiple Availiblity Zones for high availiblity to mitigate your failure domain. You can view how many and which availibility zones are availible for given regions on AWS' website. In this tutorial, we will be concerning ourselves with 1 region and 1 availiblity zone to deploy all our networking resources as you'll soon see.
 
-![AWS Regions and Availibility Zones](images/AWS-AZ.gif)
+![AWS Regions and Availibility Zones](images/VPC/AWS-AZ.gif)
 
 ### Creating a VPC
 Before we begin, I want to outline our objectives in this tutorial. In this tutorial we aim to create our very own [Virtual Pivate Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html) which lets us provision logically isolated sections of the the cloud where we can later launch AWS resources like virtual machines, also known as EC2 instances, in virtual networks that we will create within the VPC. 
@@ -31,12 +31,12 @@ Begin by clicking *"Create VPC"* button on top and then follow the wizard.
 
 In the creation wizard, you will only need to specify
 
-1.  Name: `Demo-VPC`
-2.  CIDR block : `172.16.0.0/16`
-	  * This CIDR block will encompass all your availible IP's within the VPC to segment out into specific subnets and networks.
-3. Click *Yes Create* and continue. 
+1.  *Name*: `Demo-VPC`
+2.  *CIDR block* : `172.16.0.0/16`
+	  * This CIDR block will encompass all your availible IP's within the VPC to later segment out into specific subnets and networks.
+3. Click *Yes Create* and then continue. 
 
-![Create a new VPC](images/new-VPC.gif)
+![Create a new VPC](images/VPC/new-VPC.gif)
 
 ### Creating Three Subnets
 
@@ -50,7 +50,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
   * **Availibility Zone** `us-west-1a`
   * **Note:** In subsequent steps, we will ensure that this subnet will not have any access to and from the internet.
 
-![Create MGMT Subnet](images/MGMT-subnet.gif)
+![Create MGMT Subnet](images/VPC/MGMT-subnet.gif)
 
 ***Server Subnet:***
 
@@ -60,7 +60,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
   * **Availibility Zone** `us-west-1a`
   * **Note:** In subsequent steps, we will ensure that this subnet will only have outbound access to the internet and that no direct connections from the internet can be established. We will configure a [NAT Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html) for this use case.
 
-![Create Server Subnet](images/Server-subnet.gif)
+![Create Server Subnet](images/VPC/Server-subnet.gif)
 
 ***Client Subnet***
 
@@ -70,7 +70,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
   * **Availibility Zone** `us-west-1a`
   * **Note:** In subsequent steps, we will configure the ability for resources deployed in this network to have direct access to and from the internet with Public IPs. We will configure an [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Internet_Gateway.html) for this use case.
 
-![Create Client Subnet](images/Client-subnet.gif)
+![Create Client Subnet](images/VPC/Client-subnet.gif)
 
 ### Creating Three Route Tables
 
@@ -80,7 +80,7 @@ We will now configure routing to and from each subnet within the VPC. Click n *R
 
 Click on the *No Named* route table and examine the route entries on that table.   The main route table for our *Demo-VPC* as you'll see is our automatically created by default with only one route entry. Rename that route table to `MGMT-RT`. Under the *Routes* tab, you'll see the single entry shows a destination route to any IP in the `172.16.0.0/16` range which makes up our whole VPC. In short, this states any IP in any subnet has a direct local route to any other IP within the VPC. Note that there is no route to the internet. 
 
-![Create MGMT Route Table](images/MGMT-RT.gif)
+![Create MGMT Route Table](images/VPC/MGMT-RT.gif)
 
 ***Create and Configure the Server Subnet's Route Table***
 
@@ -89,13 +89,13 @@ We will now require an additional route table for the **Server** subnet which wi
 1. Click on *NAT Gateways* on the left pane and then click on *Create NAT Gateway* GUI button at the top.
 2. Under *Subnet* select the **Server** subnet and then click *Create new EIP*. EIP stands for [Elastic IP](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics}) which is a public, static IP now associated with this NAT gateway. The NAT gateway will use this IP to [masquerade](http://www.oreilly.com/openbook/linag2/book/ch11.html) outbound connections via NAT so the source IP for any internet bound connection will be of the NAT Gateway's EIP.
 
-![Create NAT Gateway](images/NAT-GW.gif)
+![Create NAT Gateway](images/VPC/NAT-GW.gif)
 
-3. Once a NAT Gateway is configured, navigate back to the *Route Tables* configurations and Create a new Route Table named `Server-RT` in the `Demo-VPC`. 
+3. Once a NAT Gateway is configured, navigate back to the *Route Tables* configurations and create a new Route Table named `Server-RT` in the `Demo-VPC`. 
 4. Explicitly associate only the **Server** Subnet to this route table.
 5. Next add a new entry for a default route `0.0.0.0/0` targeting the NAT Gateway (Auto populated on drop down).
 
-![Create Server Route Table](images/Server-RT.gif)
+![Create Server Route Table](images/VPC/Server-RT.gif)
 
 ***Create and Configure the Client Subnet's Route Table***
 
@@ -105,16 +105,32 @@ Lastly we will now create one last route table for the **Client** subnet which w
 2. Give the Internet Gateway the name `IG-Demo`
 3. Select the Internet Gateway and attach it to the **Demo-VPC**. 
 
-![Create an Internet Gateway](images/IG-GW.gif)
+![Create an Internet Gateway](images/VPC/IG-GW.gif)
 
-3. Once an Internet Gateway is configured, navigate back to the *Route Tables* configurations and Create a new Route Table named `Client-RT` in the `Demo-VPC`. 
+3. Once an Internet Gateway is configured, navigate back to the *Route Tables* configurations and create a new Route Table named `Client-RT` in the `Demo-VPC`. 
 4. Explicitly associate only the **Client** Subnet to this route table.
 5. Next add a new entry for a default route `0.0.0.0/0` targeting the Internet Gateway (Auto populated on drop down).
 
-![Create Client Route Table](images/Client-RT.gif)
+![Create Client Route Table](images/VPC/Client-RT.gif)
 
 ###Summary###
 
-In this tutorial, you have created a 
+In this tutorial, you have created an isolated section of the the cloud called a VPC where you are able to carve out specific networks for your cloud resources. Here we created three networks defined by 3 subnets with three corresponding routing tables and 2 gateways for internet access: NAT Gateway and Internet Gateway. 
+
+**Subnets Created**
+ 
+1. ***MGMT*** 172.16.10.0/24
+  * Used for management traffic which only has routes to subnets within the VPC
+2. ***Server*** 172.16.20.0/24
+  * Used for backend cloud hosted virtual machines (EC2 Instances) network traffic. 
+  * This network has outbound access to the internet via a designated NAT gateway.
+3. ***Client*** 172.16.30.0/24
+  * Used for web facing traffic where outbount access to the internet is via an Internet Gateway. 
+  * Resources on this network can obtain a persistent Elastic IP for direct access to the resource.
+
+In conclusion, below is a visual overview of the network toplogy we have created in AWS. In subsequent tutorials we will deploy resources to each of the configured network to demonstrate how to set up hosting infrastructure in the cloud.
+
+![Network Topology](images/VPC/Base-NTW-Topology.jpg)
+ 
 
 
