@@ -1,13 +1,13 @@
-# Networking in AWS (VPC) #
-In this Section we will explore how to configure cloud networking in AWS. If you have not already done so, logon to [https://consle.aws.amazon.com](https://consol.aws.amazon.com) to gain access to the AWS dashboard. Once you have logged on, in the top left you will notice a "Service" drop down which lists all of your services availible that you can subscribe to and consume for your cloud infrastructure. For configuring our cloud's networking resources, we will primarily be working in the VPC dashboard. Click on VPC under services to enter the VPC dashboard. 
+# [Networking in AWS (VPC)](#VPC) #
+In this Section we will explore how to configure cloud networking in AWS. If you have not already done so, logon to [https://consle.aws.amazon.com](https://consol.aws.amazon.com) to gain access to the AWS dashboard. Once you have logged on, in the top left you will notice a "Service" drop down which lists all of your services availible that you can subscribe to and consume for your cloud infrastructure. For configuring our cloud's networking resources, we will primarily be working in the VPC dashboard. Click on VPC under services to enter the [VPC dashboard](https://console.aws.amazon.com/vpc/). 
 
 ![AWS Dashboard Services](images/AWS-VPC-Dashboard.gif)
 
-Once you're in the VPC dashboard, you will notice in the top right my selected region is *N. California*. This designates where my resources in the cloud will be geographically residing. Each Region consists of multiple Availiblity Zones for high availiblity to mitigate your failure domain. You can view how many and which availibility zones are availible for given regions on AWS' website. In this tutorial, we will be concerning ourselves with 1 region and 1 availiblity zone to deploy all our networking resources as you'll soon see.
+Once you're in the [VPC dashboard](https://console.aws.amazon.com/vpc/), you will notice in the top right my selected region is *N. California*. This designates where my resources in the cloud will be geographically residing. Each Region consists of multiple Availiblity Zones for high availiblity to mitigate your failure domain. You can view how many and which availibility zones are availible for given regions on AWS' website. In this tutorial, we will be concerning ourselves with 1 region and 1 availiblity zone to deploy all our networking resources as you'll soon see.
 
 ![AWS Regions and Availibility Zones](images/AWS-AZ.gif)
 
-## Creating a VPC ##
+## [Creating a VPC](#VPC-Wizard) ##
 Before we begin, I want to outline our objectives in this tutorial. In this tutorial we aim to create our very own [Virtual Pivate Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html) which lets us provision logically isolated sections of the the cloud where we can later launch AWS resources like virtual machines, also known as EC2 instances, in virtual networks that we will create within the VPC. 
 
 We will create three of these virtual networks also known as [subnets](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html). 
@@ -31,11 +31,11 @@ In the creation wizard, you will only need to specify
 
 ![Create a new VPC](images/new-VPC.gif)
 
-## Creating Three Subnets ##
+## [Creating Three Subnets](#VPC-Subnets) ##
 
 Now we will create the three subnets outlined above. Click on *Subnets* on the left pane and then click the *Create Subnet* button for each new subnet to be created. Here we will give the following subnets the following parameters: 
 
-### Management Subnet: ###
+### [Management Subnet:](#MGMT-Subnet) ###
 
   * **Name** `MGMT` for management traffic
   * **VPC** `Demo-VPC`
@@ -45,7 +45,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create MGMT Subnet](images/MGMT-subnet.gif)
 
-### Server Subnet:  ####
+### [Server Subnet:](#Server-Subnet)  ####
 
   * **Name** `Server` for private back-end server traffic
   * **VPC** `Demo-VPC`
@@ -55,7 +55,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create Server Subnet](images/Server-subnet.gif)
 
-### Client Subnet ###
+### [Client Subnet](#Client-Subnet) ###
 
   * **Name** `Client` for Direct web-facing internet traffic. 
   * **VPC** `Demo-VPC`
@@ -65,17 +65,17 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create Client Subnet](images/Client-subnet.gif)
 
-## Creating Three Route Tables ##
+## [Creating Three Route Tables](#Route-Tables) ##
 
 We will now configure routing to and from each subnet within the VPC. Click n *Route Table* on the left pane. Here we will configure three route tables for the three different types of subnets we have. By default one is already created for us which is by default the *main* route table for the VPC that all subnets are *implicitly* associated with. 
 
-### Configure the MGMT Subnet Default Route Table ###
+### [Configure the MGMT Subnet Default Route Table](#MGMT-RT) ###
 
 Click on the *No Named* route table and examine the route entries on that table.   The main route table for our *Demo-VPC* as you'll see is our automatically created by default with only one route entry. Rename that route table to `MGMT-RT`. Under the *Routes* tab, you'll see the single entry shows a destination route to any IP in the `172.16.0.0/16` range which makes up our whole VPC. In short, this states any IP in any subnet has a direct local route to any other IP within the VPC. Note that there is no route to the internet. 
 
 ![Create MGMT Route Table](images/MGMT-RT.gif)
 
-## Create and Configure the Server Subnet's Route Table ###
+## [Create and Configure the Server Subnet's Route Table ](#Server-RT)###
 
 We will now require an additional route table for the **Server** subnet which will have access to any destination IP within the VPC as well as a default gateway entry in the route table to reach the internet for out-bound access. Servers on this network will need to be able to pull updates and packages from the interne thus they will require a gateway for appropriate routing. Before we create the route table, we will first create a NAT Gateway for out bound internet access. 
 
@@ -90,7 +90,7 @@ We will now require an additional route table for the **Server** subnet which wi
 
 ![Create Server Route Table](images/Server-RT.gif)
 
-### Create and Configure the Client Subnet's Route Table ###
+### [Create and Configure the Client Subnet's Route Table](#Client-RT) ###
 
 Lastly we will now create one last route table for the **Client** subnet which will have access to any destination IP within the VPC as well as a default gateway entry in the route table to reach the internet for out-bound access. However, resources on this network will also need to be able to have public IP's  [EIPs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#eip-basics}) associated with them for direct request from end clients comming in from the internet. Thefore an [Internet Gateway](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Internet_Gateway.html) will be used for this subnet for outbound and inbound direct internet access. 
 
@@ -106,11 +106,11 @@ Lastly we will now create one last route table for the **Client** subnet which w
 
 ![Create Client Route Table](images/Client-RT.gif)
 
-## Summary ##
+## [Summary](#VPC-Summary) ##
 
 In this tutorial, you have created an isolated section of the the cloud called a VPC where you are able to carve out specific networks for your cloud resources. Here we created three networks defined by 3 subnets with three corresponding routing tables and 2 gateways for internet access: NAT Gateway and Internet Gateway. 
 
-### Subnets Created ###
+### [Subnets Created](#Created-Subnets) ###
  
 1. ***MGMT*** 172.16.10.0/24
   * Used for management traffic which only has routes to subnets within the VPC
