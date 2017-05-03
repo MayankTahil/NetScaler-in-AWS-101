@@ -6,7 +6,7 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
 
 
 ## Networking in AWS (VPC)
-In this Section we will explore how to configure cloud networking in AWS. If you have not already done so, logon to [htps://consle.aw.amazon.com](consol.aws.asazon.com) to gain access to the AWS dashboard. Once you have logged on, in the top left you will notice a "Service" drop down which lists all of your services availible that you can subscribe to and consume for your cloud infrastructure. For configuring our cloud's networking resources, we will primarily be working in the VPC dashboard. Click on VPC under services to enter the VPC dashboard. 
+In this Section we will explore how to configure cloud networking in AWS. If you have not already done so, logon to [https://consle.aws.amazon.com](https://consol.aws.amazon.com) to gain access to the AWS dashboard. Once you have logged on, in the top left you will notice a "Service" drop down which lists all of your services availible that you can subscribe to and consume for your cloud infrastructure. For configuring our cloud's networking resources, we will primarily be working in the VPC dashboard. Click on VPC under services to enter the VPC dashboard. 
 
 ![AWS Dashboard Services](images/VPC/AWS-VPC-Dashboard.gif)
 
