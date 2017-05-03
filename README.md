@@ -36,7 +36,7 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
   * Host Two Webservers on port 80, 81, 82
   * Configure Custom Security Groups Rules
 
-  **Summary of [Network Topology after completion](EC2/images/Base-NTW-Topology.jpg)**
+  **Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
 
 ### Storage in AWS [S3](S3/), [EFS](EFS/), and [EBS](EBS/)
 1. [S3](S3/)
@@ -50,6 +50,24 @@ As a pre-requisite for this tutorial, please sign up and create your own AWS Fre
   * Retreive Files from the EFS
 3. [EBS](EBS/)
   * PLACE HOLDER
+
+### [Deploy NetScaler ADC in AWS](Deploy-NS/)
+1. EC2 Launch Wizard for NetScaler VPX 1000 (MGMT Subnet)
+2. Attach Additional ENI's
+  * ENI on Server Subnet
+      * Allocate 1 private IP
+  * ENI on Client Subnet
+      * Allocate 2 private IPs
+3. Configure NetScaler IP's
+  *  Server Subnet SNIP
+  *  Client Subnet SNIP
+  *  Client Subnet VIP
+4. Allot EIP for VIP for External Access.
+5. Validate Configuration
+  
+  **Summary of [Network Topology after completion](Deploy-NS/images/NS-ADC-NTW-Topology.jpg)**
+
+
  
 
 
