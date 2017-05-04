@@ -45,7 +45,7 @@ Now we will create the three subnets outlined above. Click on *Subnets* on the l
 
 ![Create MGMT Subnet](images/MGMT-subnet.gif)
 
-### [Server Subnet:](#Server-Subnet)  ####
+### [Server Subnet:](#Server-Subnet)  ###
 
   * **Name** `Server` for private back-end server traffic
   * **VPC** `Demo-VPC`
@@ -75,7 +75,7 @@ Click on the *No Named* route table and examine the route entries on that table.
 
 ![Create MGMT Route Table](images/MGMT-RT.gif)
 
-## [Create and Configure the Server Subnet's Route Table ](#Server-RT)###
+### [Create and Configure the Server Subnet's Route Table ](#Server-RT) ###
 
 We will now require an additional route table for the **Server** subnet which will have access to any destination IP within the VPC as well as a default gateway entry in the route table to reach the internet for out-bound access. Servers on this network will need to be able to pull updates and packages from the interne thus they will require a gateway for appropriate routing. Before we create the route table, we will first create a NAT Gateway for out bound internet access. 
 
