@@ -18,7 +18,7 @@ We will also configure a public, static IP via [Elastic IPs (EIP)](http://docs.a
 Lets begin by launching our first EC2 instance. 
 
 
-## [Launch an Linux EC2 Instance (Server Network)](#Window-EC2)##
+## [Launch an Linux EC2 Instance (Server Network)](#Window-EC2) ##
 Click on *"Instances"* on the left column and begin by clicking *"Launch Instance"* button and then follow the wizard. 
 
 ### [EC2 Launch Wizard](#Windows-EC2-LaunchWizard)###
