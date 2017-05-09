@@ -40,7 +40,7 @@ You also have many more options to do things such as encrypt, rename, download a
 
 Under the **Properties** tab you can enable additional features such a cross region sync, static website hosting, etc. Under the **Permissions** tab you can manage RBAC for your IAM users. Lastly, under the **Management** tab you have access to advanced features such as lifecycle rules to automate and manage your objects, colelct analytics, metric, and better account for files and object inventory within the bucket. 
 
-![AWS Dashboard Services](images/AWS-S3-Bucket-Info.gif)
+![AWS Dashboard Services](images/AWS-S3-Bucket-info.gif)
 
 Poke around and gain familiarity with the console and service. In the next section we will upload files into the bucket to later retrieve them.
 
