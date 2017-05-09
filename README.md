@@ -18,9 +18,9 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 1. Overview
 2. Creating a VPC
 3. Creating Three Subnets
-  * Management Subnet
-  * Server Subnet
-  * Client Subnet
+    * Management Subnet
+    * Server Subnet
+    * Client Subnet
 4. Creating Three Route Tables
   * Configure the MGMT Subnet Default Route Table
   * Create and Configure the Server Subnet's Route Table

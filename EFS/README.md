@@ -31,9 +31,9 @@ Finally confirm the configuration and and click ***Create File System*** button 
 
 **It is very important to note down the following information**:
 
-  *  **DNS name**: fs-dd40ff94.efs.us-east-1.amazonaws.com
-  *  **Network Interface ID**: eni-27b1eaff
-  *  **IP Address:** 172.16.20.247
+  *  **DNS name**: fs-e0f34aa9.efs.us-east-1.amazonaws.com
+  *  **Network Interface ID**: eni-4553bb9e
+  *  **IP Address:** 172.16.20.103
   *  **Security Groups**: sg-de25efa0 - default
 
 ##  [Summary](#EFS-Summary) ##
