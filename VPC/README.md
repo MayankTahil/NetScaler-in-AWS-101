@@ -7,7 +7,7 @@ Once you're in the [VPC dashboard](https://console.aws.amazon.com/vpc/), you wil
 
 ![AWS Regions and Availibility Zones](images/AWS-AZ.gif)
 
-## [Creating a VPC](#VPC-Wizard) ##
+## [Overview](#VPC-Overview) ##
 Before we begin, I want to outline our objectives in this tutorial. In this tutorial we aim to create our very own [Virtual Pivate Cloud](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html) which lets us provision logically isolated sections of the the cloud where we can later launch AWS resources like virtual machines, also known as EC2 instances, in virtual networks that we will create within the VPC. 
 
 We will create three of these virtual networks also known as [subnets](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html). 
@@ -18,6 +18,7 @@ We will create three of these virtual networks also known as [subnets](http://do
   
 3. One subnet will be created for **client** facing traffic as a public subnet which has outbound and static IP mapping capability for direct inbound access from the internet. 
 
+## [Creating a VPC](#VPC-Wizard) ##
 Lets begin by creating our first VPC. Click on *"Your VPCs"* on the left column and notice that a default VPC has already been created for us. This is out of the box configuration from AWS to quickly deploy compute resources. However, we will ignore the defaults and be explicit in creating our own networks.
 
 Begin by clicking *"Create VPC"* button on top and then follow the wizard. 
