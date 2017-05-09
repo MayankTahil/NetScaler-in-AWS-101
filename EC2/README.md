@@ -29,12 +29,10 @@ Click on *"Launch Instances"* under *Create Instance* heading within the EC2 Das
     * Quick start ones are commonly used AMI's
     * Under **AWS Market Place* you an browse through all the official AMI's availible by various Vendors. Here you will find Citrix [NetScaler AMI](https://aws.amazon.com/marketplace/pp/B00AA01BOE?ref=cns_srchrow) as we will see in the next module.
     * You can also browse through community AMI's as well as publish your own AMI's created from EC2 instances into the community store. For [example](https://github.com/cargomedia/vagrant-boxes), this is a Debian based AMI (ami-01220416) for [Vagrant environments](https://www.vagrantup.com/) availible in the community store. 
-
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-1.png)
 
 2. **Next under Instance Type select** ***t2.micro*** **which is [Free Tier Elegible](https://aws.amazon.com/s/dm/optimization/server-side-test/free-tier/free_nc/#details)**
 	* In this step of the Wizard you can select various different resource allocations to your EC2 instance. **Note** that pricing varies based on size of the isntance. 
-
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-2.png)
 
 3. **Next under Configure Instance Details you will specify networking and other configurations**
@@ -56,7 +54,7 @@ Click on *"Launch Instances"* under *Create Instance* heading within the EC2 Das
 	* **Domain Join Directory** enables you to join your instance to a directory you've defined in [AWS Directory Service](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html) which is similar to Microsoft Active Directory. It gives you a single sign-on and centralized management experience across a network of Windows instances.
 		* **Select None** for our usecase
 
-	* **IAM Role** as discussed earlier is for Identiy [Access Management](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html?icmpid=docs_ec2_console). For EC2, IAM roles automatically deploys and rotates AWS credentials for you, removing the need to store your AWS access keys with your application to make AWS API calls.
+	* **IAM Role** as discussed earlier is for [Identiy Access Management](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html?icmpid=docs_ec2_console). For EC2, IAM roles automatically deploys and rotates AWS credentials for you, removing the need to store your AWS access keys with your application to make AWS API calls.
 		* **Select None** for our usecase
 
 	* **Shutdown behaviour** specifies upon shutdown of VM, if the isntance will be stopped or terminated. 
@@ -73,36 +71,31 @@ Click on *"Launch Instances"* under *Create Instance* heading within the EC2 Das
 
 	* **Network Interfaces** by default create a single vNIC for the instance (eth0). The first and default interface on the instance is it's "default" [Elastic Network Interface (ENI)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html). During this step you can specify a static priate IP within the subnet or allow an IP to be allocated based on DHCP. 
 		* **Enter 172.16.30.10 under Primary IP** but note you can add additional private IPs that the instance can own assocaited with a particular ENI. You will also see later when we deploy NetScaler ADC, we will manage ENI private IPs that will be used as VIPs for Load Balancing. 
-
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-3.png)
 
 4. **Next under Add Storage pane, we will associate block volumes to the EC2 Isntances**
 	* Here we associate block storage to the instances where all filesystem, OS, and perisstent data will be stored for the EC2 instance. These volumes are known as [EBS volumes](https://aws.amazon.com/ebs/details/) in AWS. EBS can be elastic in relation to their storage size, IOPs, and Encryption. 
 		* **Enter 30GB for size and General Puporse for Volume Type** for our use case. 
-
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-4.png)
 
 5. **Next under Add Tags we can specify Key Value pairs to reference and index the EC2 instance**
       * We won't set any tags here for now.
-
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-5.png)
 
 6. **Configure [Security Groups](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html#vpc-security-groups) for firewall rules that control network traffic to your instance.**
 	* **Assign a new security group** and we will stick to the **default values** of only allowing RDP connections from *any* source IP to the instance. 
-	* Note that this does mean ICMP/ping traffic will be blocked along with any other port or protocol to that machine from any other end client within or outside the VPC. 
-
-Click **Review and Launch** to review your configurations. 
-
+	* **Note** that this does mean ICMP/ping traffic will be blocked along with any other port or protocol to that machine from any other end client within or outside the VPC. 
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-6.png)
 
-Click **Launch** to provision your EC2 Instance. 
-	* Once you click *Launh* you will be asked to create or associaate an SSH key pair to the instance. 
+7. Click **Review and Launch** to review your configurations. 
+![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-7.png)
+
+8. Click Launch to provision your EC2 Instance.
+	* Once you click Launch you will be asked to create or associaate an SSH key pair to the instance. 
 	* This key pair is crucial and the only way to retrieve your machine's username and password credentials for Windows EC2 instances
 	* This key pair is also crucial for Linux EC2 instances where this SSH key pair is used to SSH into the machine. 
 	* Without having the delegated keypair, you may very will be locked out of your instance. 
-	* ** Choose the existing key pair : Demo-Key-Pair that was created from the [S3 tutorial](../S3/README.md)
-
-![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-7.png)
+	* **Choose the existing key pair : Demo-Key-Pair** that was created from the [S3 tutorial](../S3/README.md)
 ![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-8.png)
 
 ## [Overview EC2 Launch Wizard for Windows Server 2016 Instance](#EC2-Windows-Overview) ##
