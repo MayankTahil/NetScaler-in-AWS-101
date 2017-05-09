@@ -13,7 +13,7 @@ Before we begin, I want to outline our objectives in this tutorial. In this tuto
   1. A [Windows 2016 Server EC2 instance](https://aws.amazon.com/marketplace/pp/B01M7SJEU7?ref=cns_srchrow) on the Client Subnet
   2. A [Linux Ubuntu EC2 Instance](https://aws.amazon.com/marketplace/pp/B01JBL2M0O?qid=1493848518901&sr=0-1&ref_=srh_res_product_title) on the Server Subnet
 
-We will also configure a public, static IP via [Elastic IPs (EIP)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) to the Windows EC2 instance for external RDP access and then use the Windows machine to SSH via Putty into the Linux EC2 instance to set up docker and a few websites.
+We will also configure a static public IP aka [Elastic IPs (EIP)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) to the Windows EC2 instance for external RDP access and then use the Windows machine to SSH via Putty into the Linux EC2 instance to set up docker and a few websites.
 
 Lets begin by launching our first EC2 instance. 
 
@@ -21,11 +21,11 @@ Lets begin by launching our first EC2 instance.
 ## [Launch an Linux EC2 Instance (Server Network)](#Window-EC2) ##
 Click on *"Instances"* on the left column and begin by clicking *"Launch Instance"* button and then follow the wizard. 
 
-### [EC2 Launch Wizard](#Windows-EC2-LaunchWizard)###
+### [EC2 Launch Wizard](#Windows-EC2-LaunchWizard) ###
 
 Here you will only to specify:
 
-### [Allocate Elastic IPs (EIPs)](#Windows-EIPs)###
+### [Allocate Elastic IPs (EIPs)](#Windows-EIPs) ###
 
 PLACE HOLDER
 
@@ -34,7 +34,7 @@ PLACE HOLDER
 PLACE HOLDER
 
 
-## [Launch a Linux EC2 Instance (Server Network)](#Linux-EC2)##
+## [Launch a Linux EC2 Instance (Server Network)](#Linux-EC2) ##
 Click on *"Instances"* on the left column and begin by clicking *"Launch Instance"* button and then follow the wizard. 
 
 ### [EC2 Launch Wizard](#Linux-EC2-LaunchWizard) ###
