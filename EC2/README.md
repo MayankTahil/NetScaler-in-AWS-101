@@ -17,9 +17,9 @@ Before we begin, I want to outline our objectives in this tutorial. In this tuto
 We will also configure a static public IP aka [Elastic IPs (EIP)](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html) to the Windows EC2 instance for external RDP access and then use the Windows machine to SSH via Putty into the Linux EC2 instance to set up docker and a few websites.
 
 ## [Directions](/Windows-EC2/README.md#EC2-Windows) ##
-1. Lets begin by launching our first [Windows Server 2016 EC2 Instance](/Windows-EC2/README.md#EC2-Windows). Click on the link to begin this module.
+1. Lets begin by launching our first [Windows Server 2016 EC2 Instance](Windows-EC2/README.md#EC2-Windows). Click on the link to begin this module.
 
-2. Next we will provision our second [Ubuntu 16.04 LTS EC2 Instance](/Ubuntu-EC2/README.md#Linux-EC2). Click on the link to begin this module.
+2. Next we will provision our second [Ubuntu 16.04 LTS EC2 Instance](Ubuntu-EC2/README.md#Linux-EC2). Click on the link to begin this module.
 
 
 ## [Summary](#EC2-Summary) ##
