@@ -11,7 +11,7 @@ Once you're in the [EFS dashboard](https://console.aws.amazon.com/efs/), click `
 
   *  Select our previously created **Demo-VPC**. 
   *  Select the **1a** availiblity zone hosting the **Server Subnet**.
-  *  Under IP address, provide `172.16.20.10` IP so we are explicite in your referncing later in the tutorial. 
+  *  Under IP address, provide `172.16.20.100` IP so we are explicite in your referncing later in the tutorial. 
   * Accept the default selected Security Group. 
     * [Security groups](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html) function similarly to ACL firewalls that allow and block access from particular source IP and destination ports. We will further configure this security group later. For now we will accept defaults
 
@@ -19,7 +19,7 @@ Once you're in the [EFS dashboard](https://console.aws.amazon.com/efs/), click `
 
 ***Step 2: Configure optional settings***:
 
-Here we can associate Tags for reference and naming as well as opt in for higher IOPs backed storage for our NFS share. We will name (key) the EFS mount point ***Demo-EFS** (value) and accept the default General Purpose IOP tier.
+Here we can associate Tags for reference and naming as well as opt in for higher IOPs backed storage for our NFS share. We will name (key) the EFS mount point **Demo-EFS** (value) and accept the default General Purpose IOP tier.
 
 ![AWS Dashboard Services](images/AWS-EFS-step-2.gif)
 
@@ -31,10 +31,15 @@ Finally confirm the configuration and and click ***Create File System*** button 
 
 **It is very important to note down the following information**:
 
-  *  **DNS name**: fs-e0f34aa9.efs.us-east-1.amazonaws.com
-  *  **Network Interface ID**: eni-4553bb9e
-  *  **IP Address:** 172.16.20.103
+  *  **DNS name**: fs-6678c12f.efs.us-east-1.amazonaws.com
+  *  **Network Interface ID**: eni-fb2de420
+  *  **IP Address:** 172.16.20.208
   *  **Security Groups**: sg-de25efa0 - default
+  *  **Mount Target ID**: fsmt-d5de5c9c
+
+ > Note that it may take a few moments for the EFS to be created. See below for the details on the EFS created. 
+
+ ![AWS Dashboard Services](images/AWS-EFS-deatils.png)
 
 ##  [Summary](#EFS-Summary) ##
 
