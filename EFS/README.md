@@ -39,7 +39,7 @@ Finally confirm the configuration and and click ***Create File System*** button 
 
  > Note that it may take a few moments for the EFS to be created. See below for the details on the EFS created. 
 
- ![AWS Dashboard Services](images/AWS-EFS-deatils.png)
+ ![AWS Dashboard Services](images/AWS-EFS-details.png)
 
 ##  [Summary](#EFS-Summary) ##
 
