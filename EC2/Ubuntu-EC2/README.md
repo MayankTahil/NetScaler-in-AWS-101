@@ -1,4 +1,4 @@
-# [Launch a Linux EC2 Instance (Server Network)](#Linux-EC2) #
+# [Launch a Linux EC2 Instance (Server Subnet)](#Linux-EC2) #
 
 So far you should have deployed a [Windows 2016 EC2 instance](../Windows-EC2/README.MD) that we can RDP into. However for hosted services, backend servers are often linux based compute servers. In this section we will deploy a Linux Instance on a private subnet that has  outbound access to the internet for updates and apt-packages but no direct acess for clients from the internet. We will use the Windows Machine as a [bastion host](https://aws.amazon.com/blogs/security/controlling-network-access-to-ec2-instances-using-a-bastion-server/) to SSH into this instance and configure some web hosted services that we can access only within our Virtual Private Network. Later when we [deploy NetScaler ADC](../Deploy-NS/README.md), we will set up external access in a private back-end subnet via our NetScaler reverse proxy.
 
@@ -136,36 +136,139 @@ Next we will need to mount the EFS volume we configured earlier in the [EFS Modu
 
 In this section we will mount [our Amazon EFS file system](../EFS/README.md) upon boot. To automatically mount our Amazon EFS file system directory when the Amazon EC2 instance reboots, we will make edits to the `fstab` file within the instance. The fstab file contains information about network file systems, and the command `mount -a`, which runs during instance startup and mounts the file systems listed in the fstab file. There are two ways to set up automatic mounting.
 
-1. First lets make a new folder to mount the file system to. Enter the following command to create a new directory: 
+## EFS Security Groups ##
 
+First lets make sure our security groups associated with our ENI of the Ubuntu Server allow for NFS traffic and vise versa. We will configure two security groups. **1.** Add a rule to the *Backend-WebServer* to allow NFS traffic from the EFS' ENI. **2.** Then add an inbound rule to the EFS' Security Group to allow NFS traffic from the **Server Subnet**, *172.16.20.0/24*. 
+
+1. Under the [EFS dashboard](https://console.aws.amazon.com/efs/), click on your EFS volume to see details. Note down the Security Group associated with the EFS ENI and then navigate to the [EC2 dashboard](https://console.aws.amazon.com/ec2/) and click on *Security Group* in the left pane. Locate the EFS Secuirty Group (In my case it was `sg-de25efa0`). Add a rule to allow NFS traffic from from the **Server Subnet**, *172.16.20.0/24*. Also, give this security Group a name of `NFS-SG` for easy identification.  
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-Ubuntu-nfs-sg.gif)
+
+2. Next, still within the the Security Group section, click on the *Backend-WebServer* Security Group and add a rule to allow NFS traffic from the `NFS-SG` wich should show up on the drop down in the text field box by its *Group ID* -- in this case it was sg-de25efa0
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-Ubuntu-backend-webserver-sg.gif)
+
+## Mount the EFS ##
+
+Next SSH into the ubuntu machine via the RDP and make a new folder to mount the file system to. 
+
+1. Begin by switching to root user with the following command : `sudo su`. Then Continue by enter the following command to create a new directory: 
 `mkdir /data` 
 
 2. Next append the following line to the`/etc/fstab` file  with the following command: 
-
 ```bash
-sudo echo "**fs-6678c12f.efs.us-east-1.amazonaws.com**:/ /data nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0
+sudo echo "**172.16.20.208**:/ /data nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0
 " >> /etc/fstab
 ```
-> Note that the `fs-6678c12f.efs.us-east-1.amazonaws.com` entry is unique to my use case. It is the DNS name of my EFS that I created. **Yours will be different than shown here.** If you do not remember the DNS name of your EFS mount point, navigate to the [EFS dashboard](https://console.aws.amazon.com/efs/) and check the details for the **Demo-EFS** EFS volume. 
+> Note that the `172.16.20.208` entry is unique to my use case. It is the DNS name of my EFS that I created. **Yours will be different than shown here.** If you do not remember the IP of your EFS mount point, navigate to the [EFS dashboard](https://console.aws.amazon.com/efs/) and check the details for the **Demo-EFS** EFS volume. 
 
 3. Lastly, re-mount all the volumes in your `fstab` file to see changes by entering the following command: 
-
 `mount -a -t nfs4`
 
+4. Validate your mount point has successfully been created by entering the following command. You should see an output similar to the following: 
+`mount | grep /data`
 
+  **Output should look similar to:**
+```
+172.16.20.208:/ on /data type nfs4 (rw,relatime,vers=4.1,rsize=1048576,wsize=1048576,namlen=255,hard,proto=tcp,timeo00,retrans=2,sec=sys,clientaddr=172.16.20.10,local_lock=none,addr=172.16.20.208)
+```
 
-# [Host Webservers on port 80, 81, 82](#Host-Webservers) #
+See an overview of steps **2. - 4.** above. 
 
-PLACE HOLDER
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-Ubuntu-nfs-fstab.gif)
 
-# [Configure Custom Security Groups Rules](#Linux-Security-Groups) #
+Also, to check the storage availible to you on the sharemount, compare the availible storage sapce on your `/` (root) directory and compare it to the space avialible on the mount point `/data`. Enter the following to see: 
 
-PLACE HOLDER
+```
+cd / 
+df -h ./
+```
 
+You will see an output showing a total size ~ 8GB total which is the size of your EBS volume attached to your Ubuntu EC2 instance.
+
+```
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/xvda1      7.7G  1.5G  6.3G  19% /
+```
+
+if you type: 
+
+```
+cd /data
+df -h ./
+```
+You will see an output showing a total size ~ 8 Exabytes total which is a **lot** of storage that AWS is backing for you, however you are only charged for the number of GB you store in practically an infinitely large EFS storage mount. 
+
+```
+Filesystem       Size  Used Avail Use% Mounted on
+172.16.20.208:/  8.0E     0  8.0E   0% /data
+```
+
+# [Host Webservers on port 8080, 8081, 8082](#Host-Webservers) #
+
+Now that we've got our network storage mount establsihed and all of our pre-requisites complete, we will host a simple *Dropbox* like file sharing webserver that will store data in the EFS volume mount. We will then upload a file or two into the webapp and it will store the files data in the EFS volume mount. 
+
+This exercise will show how applications can store data in EFS mounts attached to EC2 instances.   
+
+## Launch the PSI-Transfer Docker Contianer ##
+
+Begin by assigning the correct permissions to the `/data` directory with the following command: 
+
+`sudo chown -R 1000 /data`
+
+Begin by launching a [*psi-transfer* docker container](https://hub.docker.com/r/psitrax/psitransfer/) that privides a web UI to upload and download files to and from a mapped volume mount. Enter the following command in the SSH session: 
+
+```
+docker run -dt -p 8080:3000 --name=drop-share-1 -v /data:/data psitrax/psitransfer
+```
+The breakdown of the command is as follows: 
+
+* The following `docker run` comand will run a container in the background with the `-dt` flag.
+
+* The container will be exposed on port `8080` on the Ubuntu host and mapped to port `3000` that is internal to the container. 
+
+* Name the container `drop-share-1` for easier reference. 
+
+* In the command we will map a share volume with the `-v` flag where the container can store data in it's `/data` container-local directory that is mapped to the `/data` host-local directory. 
+
+* The container will be based on the [`psitrax/psitransfer`](https://hub.docker.com/r/psitrax/psitransfer/) image that is publicly availible from [docker hub](https://docs.docker.com/docker-hub/). 
+
+You can check the status of your container with the `sudo docker ps` command. 
+
+Overview of the steps above can be seen here: 
+
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-docker-run.gif)
+
+## Access the Web UI and upload a file ##
+
+Now within your windows RDP session, navigate to `http://172.16.20.10:8080`. Once there, upload any file of your choosing, maybe even the `.ppk` file or the `putty.exe`, to upload and see how the application stores data in the `/data` volume mount backed by EFS.
+
+Once you have uploaded your file, ssh into the ubuntu host and check within the `/data` directory to see files being stored that you uploaded from the Web Browser. 
+
+Enter the following command in the SSH session: 
+
+```
+ls -l /data
+```
+
+You should see an output similar to the following: 
+
+```
+total 4
+drwxr-xr-x 2 ubuntu ubuntu 6144 May 12 01:52 12c13ec1e34e
+
+```  
+Here is a demonstration of the instructions detailed above: 
+
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-Ubuntu-upload-files.gif)
 
 # [Summary](#EC2-Summary) #
 
-PLACE HOLDER of Network Topology after completion
+In this module we successfully completed the following tasks: 
+
+1. Launched an Ubuntu 16.04 *t2.micro* EC2 Instance on the **Server Subnet**
+2. Installed Docker and NFS client utilities as pre-requisits. 
+3. Mounted an EFS volume on the EC2 Instance with appropriate Security Group Configurations
+4. Launched a file storage Webapp in docker
+5. Uploaded files from the Webapp into the EFS backed volume mount in EC2
 	
  
 
