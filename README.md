@@ -47,7 +47,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 1. [Overview](./EC2#EC2-Overview)
 2. [Launch an Windows EC2 Instance (Client Network)](./EC2/Windows-EC2/README.md#EC2-Windows)
   * [Overview EC2 Launch Wizard for Windows Server 2016 Instance](./EC2/Windows-EC2/README.md#EC2-Windows-Overview)
-  * [RDP into Windows EC2 Instance](./RDP into Windows EC2 Instance)
+  * [RDP into Windows EC2 Instance](./EC2/Windows-EC2/README.md#Windows-RDP)
   * [Pull S3 Bucket files into the Windows Instance](./EC2/Windows-EC2/README.md#Windows-S3)
   * [Summary](./EC2/Windows-EC2/README.md#Windows-EC2-Summary)
 3. [Launch a Linux EC2 Instance (Server Network)](./EC2/Ubuntu-EC2/README.md#Linux-EC2)
