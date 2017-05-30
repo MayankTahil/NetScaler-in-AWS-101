@@ -56,18 +56,14 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
   * [Mount EFS volumes on the host](./EC2/Ubuntu-EC2/README.md#Linux-EFS-Mount)
   * [Host a WebApp on port 8080](./EC2/Ubuntu-EC2/README.md#Host-Webservers)
   * [Summary](./EC2/Ubuntu-EC2/README.md#EC2-Summary)
+4. [Deploy NetScaler ADC in AWS](./EC2/Deploy-NS#Deploy-NS)
+  * [Overview](./Deploy-NS#Deploy-NS-Overview)
+  * [Provision a NetScaler ADC VPX 10 EC2 instance](./EC2/Deploy-NS#Deploy-NS-Provision)
+  * [Configure NetScaler VPX via web console](./EC2/Deploy-NS#Deploy-NS-Config) 
+  * [Configure public facing ENI](./EC2/Deploy-NS#Deploy-NS-Public-ENI). 
+  * [Configure a simple Load balancer](./EC2/Deploy-NS#Deploy-NS-LoadBalancer)
 
 **Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
-
-## [Deploy NetScaler ADC in AWS](./Deploy-NS#Deploy-NS) ##
-
-1. [Overview](./Deploy-NS#Deploy-NS-Overview)
-2. [Provision a NetScaler ADC VPX 10 EC2 instance](./Deploy-NS#Deploy-NS-Provision)
-3. [Configure NetScaler VPX via web console](./Deploy-NS#Deploy-NS-Config) 
-4. [Configure public facing ENI](./Deploy-NS#Deploy-NS-Public-ENI). 
-5. [Configure a simple Load balancer](./Deploy-NS#Deploy-NS-LoadBalancer)
-  
-**Summary of [Network Topology after completion](Deploy-NS/images/NS-ADC-NTW-Topology.jpg)**
 
 
  
