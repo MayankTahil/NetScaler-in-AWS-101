@@ -26,7 +26,18 @@ Before we begin, I want to outline our objectives in this module. In this module
 
 ## [Provision a NetScaler ADC VPX 10](#Deploy-NS-Provision) ##
 
+Begin by 
 
+## [Configure NetScaler VPX  via web console](#Deploy-NS-Provision) ##
+
+
+## [Configure NetScaler VPX via web console](#Deploy-NS-Config) ##
+
+
+## [Configure public facing ENI](./Deploy-NS#Deploy-NS-Public-ENI) ##
+
+
+## [Configure a simple Load balancer](./Deploy-NS#Deploy-NS-LoadBalancer) ##
 
 ## [Summary](#EC2-Summary) ##
 

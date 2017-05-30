@@ -14,7 +14,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
 
 # Table of Contents
 
-### [Networking in AWS (VPC)](./VPC#VPC)
+## [Networking in AWS (VPC)](./VPC#VPC) ##
 1. [Overview](/VPC#VPC-Overview)
 2. [Creating a VPC](/VPC#VPC-Wizard)
 3. [Creating Three Subnets](./VPC#VPC-Subnets)
@@ -27,9 +27,9 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
   * [Create and Configure the Client Subnet's Route Table](./VPC#Client-RT)
 5. [Summary](./VPC#VPC-Summary)
 
-  **Summary of [Network Topolgy after completion](VPC/images/Base-NTW-Topology.jpg)**
+**Summary of [Network Topolgy after completion](VPC/images/Base-NTW-Topology.jpg)**
   
-### Storage in AWS ([S3](./S3#S3) and [EFS](./EFS#EFS)) ###
+## Storage in AWS ([S3](./S3#S3) and [EFS](./EFS#EFS)) ##
 
 1. [S3](S3/)
   * [Overview](./S3#S3-Bucket)
@@ -43,7 +43,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
   * [Create an EFS Mount Point](./EFS#EFS-Wizard)
   * [Summary](./EFS#EFS-Summary)
 
-### [Computing in AWS (EC2)](./EC2#EC2) ###
+## [Computing in AWS (EC2)](./EC2#EC2) ##
 1. [Overview](./EC2#EC2-Overview)
 2. [Launch an Windows EC2 Instance (Client Network)](./EC2/Windows-EC2/README.md#EC2-Windows)
   * [Overview EC2 Launch Wizard for Windows Server 2016 Instance](./EC2/Windows-EC2/README.md#EC2-Windows-Overview)
@@ -57,23 +57,17 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
   * [Host a WebApp on port 8080](./EC2/Ubuntu-EC2/README.md#Host-Webservers)
   * [Summary](./EC2/Ubuntu-EC2/README.md#EC2-Summary)
 
-  **Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
+**Summary of [Network Topology after completion](EC2/images/EC2-NTW-Topology.jpg)**
 
-### [Deploy NetScaler ADC in AWS](./Deploy-NS#Deploy-NS) ###
-1. EC2 Launch Wizard for NetScaler VPX 1000 (MGMT Subnet)
-2. Attach Additional ENI's
-  * ENI on Server Subnet
-      * Allocate 1 private IP
-  * ENI on Client Subnet
-      * Allocate 2 private IPs
-3. Configure NetScaler IP's
-  *  Server Subnet SNIP
-  *  Client Subnet SNIP
-  *  Client Subnet VIP
-4. Allot EIP for VIP for External Access.
-5. Validate Configuration
+## [Deploy NetScaler ADC in AWS](./Deploy-NS#Deploy-NS) ##
+
+1. [Overview](./Deploy-NS#Deploy-NS-Overview)
+2. [Provision a NetScaler ADC VPX 10 EC2 instance](./Deploy-NS#Deploy-NS-Provision)
+3. [Configure NetScaler VPX via web console](./Deploy-NS#Deploy-NS-Config) 
+4. [Configure public facing ENI](./Deploy-NS#Deploy-NS-Public-ENI). 
+5. [Configure a simple Load balancer](./Deploy-NS#Deploy-NS-LoadBalancer)
   
-  **Summary of [Network Topology after completion](Deploy-NS/images/NS-ADC-NTW-Topology.jpg)**
+**Summary of [Network Topology after completion](Deploy-NS/images/NS-ADC-NTW-Topology.jpg)**
 
 
  
