@@ -63,7 +63,7 @@ Follow along via links to AWS tutorial content in the Table of Contents below.
   * [Configure public facing ENI](./EC2/Deploy-NS#Deploy-NS-Public-ENI). 
   * [Configure a simple Load balancer](./EC2/Deploy-NS#Deploy-NS-LoadBalancer)
 
-**Summary of [Network Topology after completion](VPC/images/NS-NTW-Topology.jpg)**
+**Summary of [Network Topology after completion](VPC/images/NS-NTW-Topology.png)**
 
 
  

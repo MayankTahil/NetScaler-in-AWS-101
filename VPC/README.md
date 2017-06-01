@@ -126,7 +126,7 @@ In this tutorial, you have created an isolated section of the the cloud called a
 
 In conclusion, below is a visual overview of the network toplogy we have created in AWS. In subsequent tutorials we will deploy resources to each of the configured network to demonstrate how to set up hosting infrastructure in the cloud.
 
-![Network Topology](images/Base-NTW-Topology.jpg)
+![Network Topology](images/Base-NTW-Topology.png)
  
 
 
