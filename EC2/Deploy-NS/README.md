@@ -280,6 +280,10 @@ We also attached a thrid network interface on the **Client** subnet with a stati
 
 This module concludes one of many ways to deploy NetScaler ADC in the cloud. This method by far is the most manual and explicit in its deployment. Other more automated methods are also availible for quicker deployments. This eexercise serves as a good example to gain hands on experience on how NetScaler ADC deployments in the Cloud differ (and to some extent are similar) to on prem deployments. 
 
+After having completed this module, your final cloud topology should resemble the following diagram: 
+
+![NetScaler ADC EC2 Instance](images/AWS-EC2-final-NS-topology.png)
+
 	
  
 
