@@ -274,6 +274,12 @@ Once completed. Open up any browser connected to the internet from any enpoint (
 
 ## [Summary](#EC2-Summary) ##
 
+In conclusion, within this module we deployed a NetScaler VPX 10 from AWS' market place with two Network interfaces, one on the **Management** subnet and the other in the **Server** subnet. We observed the first network interface with assigned to the instance was its default interface with a corresponding NSIP of `172.16.10.100` that we statically assigned. We statically assigned `172.16.20.100` as the private IP of the second network interface in the **Server** subnet and configured the NetScaler ADC via the Management console to use the second private IP as the SNIP to communicate with backend servers on the **Server** subnet. We also updated the NetScaler's route table to use the **Server** subnet's default gateway so all outbound  traffic will tranverse the NAT gateway for internet access. 
+
+We also attached a thrid network interface on the **Client** subnet with a static IP of `172.16.30.100`. We had to reboot the instance for changes to take effect. After rebooting the instance, we added a backend server, two services, and a loadbalancing virtual server with the virtual IP of the third network interface (`172.16.30.100`). This IP was then associated with a newly allocated elastic IP on the thrid elastic interface for direct external access. We validated load balancing by navigating to the Elastic IP from an external browser from the internet. 
+
+This module concludes one of many ways to deploy NetScaler ADC in the cloud. This method by far is the most manual and explicit in its deployment. Other more automated methods are also availible for quicker deployments. This eexercise serves as a good example to gain hands on experience on how NetScaler ADC deployments in the Cloud differ (and to some extent are similar) to on prem deployments. 
+
 	
  
 
