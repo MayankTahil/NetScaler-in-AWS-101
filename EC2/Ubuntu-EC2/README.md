@@ -6,7 +6,7 @@ Lets beign by launching an Ubuntu instance, similar to how we did for our Window
 
 Click on *"Launch Instances"* under *Create Instance* heading within the [EC2 dashboard](https://console.aws.amazon.com/ec2/). Next continue to configure the launch wizard. 
 
-![Windows 2016 EC2 Instance](images/AWS-EC2-wizard-ubnt-0.png)
+![Ubuntu EC2 Instance](images/AWS-EC2-wizard-ubnt-0.png)
 
 ## 1. Select Ubuntu Server 16.04 LTS AMI from AWS Market place under Quick Start ##
 
@@ -202,7 +202,7 @@ Filesystem       Size  Used Avail Use% Mounted on
 172.16.20.208:/  8.0E     0  8.0E   0% /data
 ```
 
-# [Host a WebApp on port 8080](#Host-Webservers) #
+# [Host a File share web Client on port 8080](#Host-file-drop) #
 
 Now that we've got our network storage mount establsihed and all of our pre-requisites complete, we will host a simple *Dropbox* like file sharing webserver that will store data in the EFS volume mount. We will then upload a file or two into the webapp and it will store the files data in the EFS volume mount. 
 
@@ -217,21 +217,23 @@ Begin by assigning the correct permissions to the `/data` directory with the fol
 Begin by launching a [*psi-transfer* docker container](https://hub.docker.com/r/psitrax/psitransfer/) that privides a web UI to upload and download files to and from a mapped volume mount. Enter the following command in the SSH session: 
 
 ```
-docker run -dt -p 8080:3000 --name=drop-share-1 -v /data:/data psitrax/psitransfer
+sudo docker run -dt -p 8080:3000 --name=drop-share-1 --restart=always -v /data:/data psitrax/psitransfer
 ```
 The breakdown of the command is as follows: 
 
 * The following `docker run` comand will run a container in the background with the `-dt` flag.
 
-* The container will be exposed on port `8080` on the Ubuntu host and mapped to port `3000` that is internal to the container. 
+* The container will be exposed on port `8080` on the Ubuntu host and mapped to port `3000` that is internal to the containers. 
 
 * Name the container `drop-share-1` for easier reference. 
 
-* In the command we will map a share volume with the `-v` flag where the container can store data in it's `/data` container-local directory that is mapped to the `/data` host-local directory. 
+* Always `restart` the container if it goes down or isn't explicitly stopped by the user. 
+
+* In the command we will map a share volume with the `-v` flag where the container can store data in it's `/data` container-local directory that is mapped to the `/data` host-local directory. Basically any data saved in the `/data` directory within the container by the applciation will be backed on the EFS mount `/data` on the ubuntu host.
 
 * The container will be based on the [`psitrax/psitransfer`](https://hub.docker.com/r/psitrax/psitransfer/) image that is publicly availible from [docker hub](https://docs.docker.com/docker-hub/). 
 
-You can check the status of your container with the `sudo docker ps` command. 
+You can check the status of your containers by entering the the `sudo docker ps` command at the cli. 
 
 Overview of the steps above can be seen here: 
 
@@ -239,9 +241,9 @@ Overview of the steps above can be seen here:
 
 ## Access the Web UI and upload a file ##
 
-Now within your windows RDP session, navigate to `http://172.16.20.10:8080`. Once there, upload any file of your choosing, maybe even the `.ppk` file or the `putty.exe`, to upload and see how the application stores data in the `/data` volume mount backed by EFS.
+Now within your windows RDP session, navigate to `http://172.16.20.10:8080` or `http://172.16.20.10:8081`. Once there, upload any file of your choosing, maybe even the `.ppk` file or the `putty.exe`, to upload and see how the application stores data in the `/data` volume mount backed by EFS.
 
-Once you have uploaded your file, ssh into the ubuntu host and check within the `/data` directory to see files being stored that you uploaded from the Web Browser. 
+Once you have uploaded your file, ssh into the ubuntu host and check within the `/data` directory to see the files being stored which you uploaded from the Web Browser. 
 
 Enter the following command in the SSH session: 
 
@@ -259,6 +261,26 @@ drwxr-xr-x 2 ubuntu ubuntu 6144 May 12 01:52 12c13ec1e34e
 Here is a demonstration of the instructions detailed above: 
 
 ![Ubuntu 2016 EC2 Instance](images/AWS-EC2-Ubuntu-upload-files.gif)
+
+# [Host Webservers A and B on port 9090 and 9091](#Host-Webservers) #
+
+In this section we will simply launch two websited on the Dockerhost that are labled as *WebServer-A* and *WebServer-B* to serve as backend services to load balance when we [deploy a NetScaler VPX](../Deploay-NS) for a simple load balancing exercise. 
+
+Ssh into the ubuntu host using putty and issue the following two commands in the CLI: 
+
+```
+sudo docker run -dt -p 9090:80 --name=webserver-a --restart=always mayankt/webserver:a
+sudo docker run -dt -p 9091:80 --name=webserver-b --restart=always mayankt/webserver:b
+sudo docker ps
+```
+
+Within your RDP session, navigate to `http://172.16.20.10:9090` and `http://172.16.20.10:9091` to validate the websited are up, running, and availible. 
+
+> **NOTE:** Please remeber to open ports 9090 and 9091 on your security group associated with the Ubuntu Server's ENI otherwise you will not be able to resolve the websites. *Allow a custom TCP Rule on port 9090 and 9091 from any source IP.*
+
+Here is a demonstration of the instructions detailed above: 
+
+![Ubuntu 2016 EC2 Instance](images/AWS-EC2-docker-run-website.gif)
 
 # [Summary](#EC2-Summary) #
 
